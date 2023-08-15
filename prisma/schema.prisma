@@ -10,11 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       Int       @id @default(autoincrement())
+  accounts Account[]
+}
+
 model Account {
   id           Int           @id @default(autoincrement())
   name         String
   balance      Decimal
   transactions Transaction[]
+  userId       Int
+  user         User          @relation(fields: [userId], references: [id])
 }
 
 model Transaction {
