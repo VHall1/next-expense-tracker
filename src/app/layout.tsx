@@ -1,7 +1,9 @@
 import { Navbar } from "@/components/navbar";
-import "./globals.css";
+import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import "./globals.css";
+import { Theme } from "@radix-ui/themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,10 +18,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Navbar />
-        {children}
+        <Theme
+          appearance="dark"
+          accentColor="violet"
+          grayColor="gray"
+          panelBackground="solid"
+          scaling="100%"
+          radius="large"
+        >
+          <Navbar />
+          {children}
+        </Theme>
       </body>
     </html>
   );
