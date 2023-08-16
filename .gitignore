@@ -2,6 +2,7 @@
 
 # sqlite
 *.db
+*.db-journal
 
 # dependencies
 /node_modules
