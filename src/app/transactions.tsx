@@ -7,12 +7,16 @@ import {
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon,
 } from "@radix-ui/react-icons";
-import { Transaction } from "@prisma/client";
 
 export const Transactions = ({
   transactions,
 }: {
-  transactions: Transaction[];
+  transactions: {
+    id: number;
+    timestamp: string;
+    description: string;
+    amount: string;
+  }[];
 }) => {
   return (
     <>
@@ -28,16 +32,9 @@ export const Transactions = ({
         <Table.Body>
           {transactions.map((transaction) => (
             <Table.Row key={`transaction-${transaction.id}`}>
-              <Table.RowHeaderCell>
-                {new Intl.DateTimeFormat("en-GB").format(transaction.timestamp)}
-              </Table.RowHeaderCell>
+              <Table.RowHeaderCell>{transaction.timestamp}</Table.RowHeaderCell>
               <Table.Cell>{transaction.description}</Table.Cell>
-              <Table.Cell>
-                {Intl.NumberFormat("en-GB", {
-                  style: "currency",
-                  currency: "GBP",
-                }).format(transaction.amount)}
-              </Table.Cell>
+              <Table.Cell>{transaction.amount}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
