@@ -1,7 +1,8 @@
 "use client";
 
-import { Button, TextFieldInput, TextFieldRoot } from "@radix-ui/themes";
+import { Button, Link, TextFieldInput, TextFieldRoot } from "@radix-ui/themes";
 import { useState, useTransition } from "react";
+import NextLink from "next/link";
 
 export function Form({
   handleSubmit,
@@ -13,11 +14,17 @@ export function Form({
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
+  let link: string | undefined;
+  let linkTitle: string | undefined;
   let title = "Authenticate";
   if (type === "signin") {
     title = "Sign in";
+    link = "/auth/signup";
+    linkTitle = "Don't have an account?";
   } else if (type === "signup") {
     title = "Sign up";
+    link = "/auth/signin";
+    linkTitle = "Already have an account?";
   }
 
   return (
@@ -33,8 +40,8 @@ export function Form({
         });
       }}
     >
-      <h3 className="text-xl font-medium">{title}</h3>
-      <div className="mt-4">
+      <h3 className="text-2xl text-center font-medium">{title}</h3>
+      <div className="mt-6">
         <label htmlFor="email">Email</label>
         <TextFieldRoot>
           <TextFieldInput
@@ -64,11 +71,17 @@ export function Form({
         <p className="text-xs text-center pt-4 text-red-500">{error}</p>
       ) : null}
 
-      <div className="flex justify-end mt-4">
-        <Button type="submit" disabled={isPending}>
-          {title}
-        </Button>
-      </div>
+      <Button className="mt-4 w-full" type="submit" disabled={isPending}>
+        {title}
+      </Button>
+
+      {link ? (
+        <div className="text-xs text-center mt-4">
+          <Link asChild>
+            <NextLink href={link}>{linkTitle}</NextLink>
+          </Link>
+        </div>
+      ) : null}
     </form>
   );
 }

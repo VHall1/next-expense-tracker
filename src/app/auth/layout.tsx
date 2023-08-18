@@ -1,3 +1,5 @@
+import { Card } from "@radix-ui/themes";
+
 export default async function AuthLayout({
   children,
 }: {
@@ -5,7 +7,7 @@ export default async function AuthLayout({
 }) {
   return (
     <div className="flex h-screen">
-      <div className="max-w-sm w-full px-4 m-auto">{children}</div>
+      <Card className="max-w-sm w-full p-4 m-auto">{children}</Card>
     </div>
   );
 }
