@@ -12,33 +12,19 @@ datasource db {
 
 model User {
   id       Int       @id @default(autoincrement())
-  accounts Account[]
   email    String    @unique
   password String
-}
-
-model Account {
-  id           Int           @id @default(autoincrement())
-  name         String
   balance      Decimal
   transactions Transaction[]
-  userId       Int
-  user         User          @relation(fields: [userId], references: [id])
 }
 
 model Transaction {
   id          Int      @id @default(autoincrement())
   description String
   amount      Decimal
-  // type TransactionType
-  account     Account  @relation(fields: [accountId], references: [id])
-  accountId   Int
+  user     User  @relation(fields: [userId], references: [id])
+  userId   Int
   timestamp   DateTime @default(now())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
-
-// enum TransactionType {
-//   MONEY_IN
-//   MONEY_OUT
-// }
