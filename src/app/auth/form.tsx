@@ -30,14 +30,14 @@ export function Form({
   return (
     <form
       action={async (e) => {
-        const response = await handleSubmit(e);
-        startTransition(() => {
+        try {
+          const response = await handleSubmit(e);
           if (response?.error) {
             setError(response.error);
-          } else {
-            setError(null);
           }
-        });
+        } catch {
+          setError("An unexpected error has occurred. Please try again later");
+        }
       }}
     >
       <h3 className="text-2xl text-center font-medium">{title}</h3>
