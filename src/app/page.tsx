@@ -1,4 +1,3 @@
-import { Navbar } from "@/components/navbar";
 import { prisma } from "@/utils/prisma";
 import { Button } from "@radix-ui/themes";
 import { Transactions } from "./transactions";
